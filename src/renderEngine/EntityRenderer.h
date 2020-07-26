@@ -7,6 +7,7 @@
 #include <GL/glew.h>
 #include "DisplayManager.h"
 #include <map>
+//#include "MasterRenderer.h"
 
 class EntityRenderer {
 private:

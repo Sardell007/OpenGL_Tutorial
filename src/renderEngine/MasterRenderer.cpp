@@ -4,10 +4,13 @@ const float FOV = 70.0f;
 const float Near_Plane = 0.1f;
 const float Far_Plane = 1000;
 
+const float RED = 0.5;
+const float GREEN = 0.5;
+const float BLUE = 0.5;
+
 
 MasterRenderer::MasterRenderer() {
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	enableCulling();
 	createProjectionMatrix();
 	renderer = EntityRenderer(shader, projectionMatrix);
 	terrainRenderer = TerrainRenderer(terrainShader, projectionMatrix);
@@ -18,14 +21,25 @@ void MasterRenderer::cleanUp() {
 	terrainShader.cleanUp();
 }
 
+void MasterRenderer::enableCulling() {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+}
+
+void MasterRenderer::disableCulling() {
+	glDisable(GL_CULL_FACE);
+}
+
 void MasterRenderer::render(Light &sun, Camera &camera) {
 	prepare();
 	shader.start();
+	shader.loadSkyColour(RED, GREEN , BLUE);
 	shader.loadLight(sun);
 	shader.loadViewMatrix(camera);
 	renderer.render(entities);
 	shader.stop();
 	terrainShader.start();
+	shader.loadSkyColour(RED, GREEN, BLUE);
 	terrainShader.loadLight(sun);
 	terrainShader.loadViewMatrix(camera);
 	terrainRenderer.renderer(terrains);
@@ -54,7 +68,7 @@ void MasterRenderer::processEntity(Entity entity) {
 
 void MasterRenderer::prepare() {
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.53, 0.81, 0.92, 1);
+	glClearColor(RED, GREEN, BLUE, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

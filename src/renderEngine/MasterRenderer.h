@@ -17,6 +17,8 @@ private:
 	std::map <int, std::vector<Entity>> entities;
 public:
 	MasterRenderer();
+	static void enableCulling();
+	static void disableCulling();
 	void cleanUp();
 	void render(Light &sun, Camera &camera);
 	void processTerrain(Terrain &terrain);

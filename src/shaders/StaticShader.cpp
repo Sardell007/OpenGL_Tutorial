@@ -11,7 +11,8 @@ int location_lightPosition_s;
 int location_lightColour_s;
 int location_shineDamper_s;
 int location_reflectivity_s;
-
+int location_useFakeLighting_s;
+int location_skyColour_s;
 
 void StaticShader::bindAttributes() {
 	bindAttribute(0, "positions");
@@ -27,6 +28,16 @@ void StaticShader::getAllUniformLocations() {
 	location_lightColour_s = getUniformLocation("lightColour");
 	location_shineDamper_s = getUniformLocation("shineDamper");
 	location_reflectivity_s = getUniformLocation("reflectivity");
+	location_useFakeLighting_s = getUniformLocation("useFakeLighting");
+	location_skyColour_s = getUniformLocation("skyColour");
+}
+
+void StaticShader::loadFakeLightingVariable(bool useFake) {
+	loadBoolean(location_useFakeLighting_s, useFake);
+}
+
+void StaticShader::loadSkyColour(float r, float g, float b) {
+	loadVector(location_skyColour_s, std::vector<float>{r, g, b});
 }
 
 StaticShader::StaticShader():ShaderProgram(VERTEX_FILE_S, FRAGMENT_FILE_S)

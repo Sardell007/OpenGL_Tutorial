@@ -12,6 +12,7 @@ public:
 	void loadProjectionMatrix(glm::mat4 matrix);
 	void loadLight(Light &light);
 	void loadShineVariables(float damper, float reflectivity);
+	void loadSkyColour(float r, float g, float b);
 	void bindAttributes();
 	void getAllUniformLocations();
 //private:

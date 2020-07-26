@@ -14,4 +14,6 @@ public :
 	void loadShineVariables(float damper, float reflectivity);
 	void bindAttributes();
 	void getAllUniformLocations();
+	void loadFakeLightingVariable(bool useFake);
+	void loadSkyColour(float r, float g, float b);
 };

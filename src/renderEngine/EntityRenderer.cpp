@@ -83,12 +83,18 @@ void EntityRenderer::prepareTexturedModel(TexturedModel &model) {
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	ModelTexture texture = model.getTexture();
+	if (texture.isHasTransparency()) {
+		glDisable(GL_CULL_FACE);
+	}
+	shader.loadFakeLightingVariable(texture.isUseFakeLighting());
 	shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, model.getTexture().getID());
 }
 
 void EntityRenderer::unbindTexturedModel() {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);

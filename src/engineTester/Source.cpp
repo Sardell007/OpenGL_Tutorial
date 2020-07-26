@@ -44,6 +44,8 @@ int main() {
 	ModelTexture grassTexture(loader.loadTexture("res/grassTexture.png"));
 	grassTexture.setShineDamper(100);
 	grassTexture.setReflectivity(10);
+	grassTexture.setHasTransparency(true);
+	grassTexture.setUseFakeLighting(true);
 	TexturedModel grassStaticModel(grassModel, grassTexture);
 	std::vector<Entity> grass;
 

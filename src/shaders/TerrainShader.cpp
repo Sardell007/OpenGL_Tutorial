@@ -12,6 +12,7 @@ int location_lightPosition_t;
 int location_lightColour_t;
 int location_shineDamper_t;
 int location_reflectivity_t;
+int location_skyColour_t;
 
 TerrainShader::TerrainShader() :ShaderProgram(VERTEX_FILE_T,FRAGMENT_FILE_T)
 {
@@ -35,11 +36,16 @@ void TerrainShader::getAllUniformLocations() {
 	location_lightColour_t = getUniformLocation("lightColour");
 	location_shineDamper_t = getUniformLocation("shineDamper");
 	location_reflectivity_t = getUniformLocation("reflectivity");
+	location_skyColour_t = getUniformLocation("skyColour");
 }
 
 void TerrainShader::loadShineVariables(float damper, float reflectivity) {
 	loadFloat(location_shineDamper_t, damper);
 	loadFloat(location_reflectivity_t, reflectivity);
+}
+
+void TerrainShader::loadSkyColour(float r, float g, float b) {
+	loadVector(location_skyColour_t, std::vector<float>{r, g, b});
 }
 
 void TerrainShader::loadTransformationMatrix(glm::mat4 matrix) {
