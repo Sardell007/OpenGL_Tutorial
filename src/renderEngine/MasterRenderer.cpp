@@ -54,7 +54,7 @@ void MasterRenderer::processEntity(Entity entity) {
 
 void MasterRenderer::prepare() {
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(1, 0, 1, 1);
+	glClearColor(0.53, 0.81, 0.92, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

@@ -17,28 +17,41 @@
 #define WIDTH 2880
 #define HEIGHT 1800
 
-int a = std::rand();
-
 int main() {
-	 
-	DisplayManager display(WIDTH,HEIGHT);
+
+	DisplayManager display(WIDTH, HEIGHT);
 	display.createDisplay();
 
 	Loader loader;
 
 	OBJLoader load;
-	RawModel model = load.loadObjModel("res/tree.obj",loader);
-	ModelTexture texture(loader.loadTexture("res/tree.png"));
-	texture.setShineDamper(100);
-	texture.setReflectivity(10);
-	TexturedModel staticModel(model,texture);
+
+	RawModel treeModel = load.loadObjModel("res/tree.obj", loader);
+	ModelTexture treeTexture(loader.loadTexture("res/tree.png"));
+	treeTexture.setShineDamper(100);
+	treeTexture.setReflectivity(10);
+	TexturedModel treeStaticModel(treeModel, treeTexture);
 	std::vector<Entity> trees;
 
 	for (int i = 0; i < 100; i++) {
-		float posX = (std::rand()) % 1600 - 800;
-		float posZ = (std::rand()) % 800;
-		float scale = 0.5 + ((std::rand()) % 10) / 10;
-		trees.push_back(Entity(staticModel, std::vector<float>{posX, 0.0f, -posZ}, 0, 0, 0, 10*scale));
+		float posX = (float)((std::rand()) % 1600 - 800);
+		float posZ = (float)((std::rand()) % 800);
+		float scale = (float)(0.5 + ((std::rand()) % 10) / 10);
+		trees.push_back(Entity(treeStaticModel, std::vector<float>{posX, 0.0f, -posZ}, 0, 0, 0, 10 * scale));
+	}
+
+	RawModel grassModel = load.loadObjModel("res/grassModel.obj", loader);
+	ModelTexture grassTexture(loader.loadTexture("res/grassTexture.png"));
+	grassTexture.setShineDamper(100);
+	grassTexture.setReflectivity(10);
+	TexturedModel grassStaticModel(grassModel, grassTexture);
+	std::vector<Entity> grass;
+
+	for (int i = 0; i < 10; i++) {
+		float posX = (float)((std::rand()) % 1600 - 800);
+		float posZ = (float)((std::rand()) % 800) + 1;
+		float scale = (float)(0.5 + ((std::rand()) % 10) / 10);
+		trees.push_back(Entity(grassStaticModel, std::vector<float>{posX, 0.0f, -posZ}, 0, 0, 0, 10 * scale));
 	}
 
 	Light light(std::vector<float>{3000, 2000, 2000}, std::vector<float>{1.0, 1.0, 1.0});
@@ -54,7 +67,9 @@ int main() {
 		camera.move();
 		renderer.processTerrain(terrain);
 		renderer.processTerrain(terrain2);
-		for(Entity entity: trees)
+		for (Entity entity : trees)
+			renderer.processEntity(entity);
+		for (Entity entity : grass)
 			renderer.processEntity(entity);
 		renderer.render(light, camera);
 		display.updateDisplay();
