@@ -6,6 +6,7 @@
 class TerrainRenderer {
 private:
 	TerrainShader shader;
+	void bindTexture(Terrain terrain);
 public:
 	TerrainRenderer(TerrainShader& shader, glm::mat4 projectionMatrix);
 	TerrainRenderer();

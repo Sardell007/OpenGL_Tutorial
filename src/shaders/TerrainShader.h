@@ -15,6 +15,7 @@ public:
 	void loadSkyColour(float r, float g, float b);
 	void bindAttributes();
 	void getAllUniformLocations();
+	void connectTextureUnits();
 //private:
 //	std::string VERTEX_FILE;
 //	std::string FRAGMENT_FILE;

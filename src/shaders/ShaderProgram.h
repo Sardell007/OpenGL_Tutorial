@@ -14,6 +14,7 @@ public:
     void bindAttribute(unsigned int attribute, std::string variableName);
     virtual void bindAttributes();
     virtual void getAllUniformLocations();
+	void loadInt(int location, int value);
     unsigned int programID;
 private:
     unsigned int vertexShaderID;

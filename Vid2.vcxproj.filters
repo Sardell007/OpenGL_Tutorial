@@ -75,6 +75,12 @@
     <ClCompile Include="src\engineTester\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\textures\TerrainTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\textures\TerrainTexturePack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\renderEngine\Loader.h">
@@ -879,6 +885,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\shaders\StaticShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\textures\TerrainTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\textures\TerrainTexturePack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

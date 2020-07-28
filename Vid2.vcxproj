@@ -169,6 +169,8 @@
     <ClCompile Include="src\shaders\TerrainShader.cpp" />
     <ClCompile Include="src\Terrain\Terrain.cpp" />
     <ClCompile Include="src\textures\ModelTexture.cpp" />
+    <ClCompile Include="src\textures\TerrainTexture.cpp" />
+    <ClCompile Include="src\textures\TerrainTexturePack.cpp" />
     <ClCompile Include="src\toolbox\Maths.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -439,6 +441,8 @@
     <ClInclude Include="src\shaders\TerrainShader.h" />
     <ClInclude Include="src\Terrain\Terrain.h" />
     <ClInclude Include="src\textures\ModelTexture.h" />
+    <ClInclude Include="src\textures\TerrainTexture.h" />
+    <ClInclude Include="src\textures\TerrainTexturePack.h" />
     <ClInclude Include="src\toolbox\Maths.h" />
   </ItemGroup>
   <ItemGroup>

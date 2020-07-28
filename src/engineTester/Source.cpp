@@ -57,10 +57,17 @@ int main() {
 	}
 
 	Light light(std::vector<float>{3000, 2000, 2000}, std::vector<float>{1.0, 1.0, 1.0});
-	ModelTexture tex1 = ModelTexture(loader.loadTexture("res/grass.png"));
-	ModelTexture tex2 = ModelTexture(loader.loadTexture("res/grass.png"));
-	Terrain terrain(0, -1, loader, tex1);
-	Terrain terrain2(-1, -1, loader, tex2);
+	//ModelTexture tex1 = ModelTexture(loader.loadTexture("res/grass.png"));
+	//ModelTexture tex2 = ModelTexture(loader.loadTexture("res/grass.png"));
+	TerrainTexture background(loader.loadTexture("res/grassy2.png"));
+	TerrainTexture flower(loader.loadTexture("res/grassFlower.png"));
+	TerrainTexture mud(loader.loadTexture("res/mud.png"));
+	TerrainTexture path(loader.loadTexture("res/path.png"));
+	TerrainTexturePack texturePack(background, flower, mud, path);
+	TerrainTexture blendMap(loader.loadTexture("res/blendMap.png"));
+
+	Terrain terrain(0, -1, loader, texturePack, blendMap);
+	Terrain terrain2(-1, -1, loader, texturePack, blendMap);
 
 	Camera camera;
 	MasterRenderer renderer;

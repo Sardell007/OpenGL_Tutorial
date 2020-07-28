@@ -13,6 +13,11 @@ int location_lightColour_t;
 int location_shineDamper_t;
 int location_reflectivity_t;
 int location_skyColour_t;
+int location_background_t;
+int location_R_t;
+int location_G_t;
+int location_B_t;
+int location_blendMap_t;
 
 TerrainShader::TerrainShader() :ShaderProgram(VERTEX_FILE_T,FRAGMENT_FILE_T)
 {
@@ -37,6 +42,19 @@ void TerrainShader::getAllUniformLocations() {
 	location_shineDamper_t = getUniformLocation("shineDamper");
 	location_reflectivity_t = getUniformLocation("reflectivity");
 	location_skyColour_t = getUniformLocation("skyColour");
+	location_background_t = getUniformLocation("backgroundTexture");
+	location_R_t = getUniformLocation("rTexture");
+	location_G_t = getUniformLocation("gTexture");
+	location_B_t = getUniformLocation("bTexture");
+	location_blendMap_t = getUniformLocation("blendMap");
+}
+
+void TerrainShader::connectTextureUnits() {
+	loadInt(location_background_t, 0);
+	loadInt(location_R_t, 1);
+	loadInt(location_G_t, 2);
+	loadInt(location_B_t, 3);
+	loadInt(location_blendMap_t, 4);
 }
 
 void TerrainShader::loadShineVariables(float damper, float reflectivity) {

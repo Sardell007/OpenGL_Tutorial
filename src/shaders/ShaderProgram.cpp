@@ -36,6 +36,10 @@ void ShaderProgram::getAllUniformLocations() {
     std::cout << "gellalluniforms program from ShaderProgram" << std::endl;
 }
 
+void ShaderProgram::loadInt(int location, int value) {
+    glUniform1i(location, value);
+}
+
 void ShaderProgram::loadFloat(int location, float value) {
     glUniform1f(location, value);
 }

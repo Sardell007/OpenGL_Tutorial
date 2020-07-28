@@ -3,8 +3,9 @@
 const float SIZE = 800;
 const int VERTEX_COUNT = 128;
 
-Terrain::Terrain(int gridX, int gridZ, Loader &loader, ModelTexture &texture) {
-	Terrain::texture = texture;
+Terrain::Terrain(int gridX, int gridZ, Loader &loader, TerrainTexturePack texturePacki, TerrainTexture blendMapi) {
+	Terrain::texturePack = texturePacki;
+	Terrain::blendMap = blendMapi; 
 	Terrain::x = gridX * SIZE;
 	Terrain::z = gridZ * SIZE;
 	Terrain::model = generateTerrain(loader);
