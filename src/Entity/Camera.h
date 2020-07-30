@@ -1,6 +1,7 @@
 #pragma once
 #include<vector>
 #include <renderEngine/DisplayManager.h>
+#include <Entity\Player.h>
 
 class Camera {
 private:
@@ -8,8 +9,16 @@ private:
 	float pitch;
 	float yaw;
 	float roll;
+	Player* player;
+	float distanceFromPlayer;
+	float angleAroundPlayer;
+	void calculateZoom();
+	void calculatePitch();
+	void calculateAngleAroundPlayer();
+	std::pair<float,float> calculateDistance();
+	void calculateCameraPosition(std::pair<float, float> disti);
 public:
-	Camera();
+	Camera(Player &player);
 	void move();
 	inline std::vector<float> getPosition() { return position; };
 	inline float getPitch() { return pitch; };

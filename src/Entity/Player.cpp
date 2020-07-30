@@ -37,7 +37,7 @@ void Player::move() {
 	increaseRotation(0, currentTurnSpeed * DisplayManager().getFrameTimeSeconds(), 0);
 	float distance = currentSpeed * DisplayManager().getFrameTimeSeconds();
 	float dx = (float) distance * std::sinf(getRy()*toRadians);
-	float dz = (float)distance * std::cosf(getRy() * toRadians);
+	float dz = (float)distance * std::cosf(getRy()*toRadians);
 	increasePosition(dx, 0, dz);
 	upwardSpeed += GRAVITY * DisplayManager().getFrameTimeSeconds();
 	increasePosition(0, upwardSpeed*DisplayManager().getFrameTimeSeconds(), 0);
@@ -58,7 +58,7 @@ void Player::jump() {
 
 void Player::checkInput() {
 	int key = DisplayManager().getKey();
-	std::cout << key << std::endl;
+	//std::cout << key << std::endl;
 	switch (key)
 	{
 	case keyW:

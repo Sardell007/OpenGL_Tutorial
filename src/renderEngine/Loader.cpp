@@ -17,7 +17,9 @@ int Loader::loadTexture(std::string filename)
 	unsigned char* m_LocalBuffer;
 	//stbi_set_flip_vertically_on_load(1);
 	m_LocalBuffer = stbi_load(filename.c_str(), &img_width, &img_height, &img_BPP, 4);
-
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.4f);
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	Loader::textures.push_back(textureID);

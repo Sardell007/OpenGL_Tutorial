@@ -66,15 +66,15 @@ int main() {
 	Terrain terrain1(0, -1, loader, texturePack, blendMap);
 	Terrain terrain2(-1, -1, loader, texturePack, blendMap);
 
-	RawModel bunnyModel = load.loadObjModel("res/bunny.obj", loader);
-	ModelTexture bunnyTexture(loader.loadTexture("res/white.png"));
+	RawModel bunnyModel = load.loadObjModel("res/person.obj", loader);
+	ModelTexture bunnyTexture(loader.loadTexture("res/person.png"));
 	bunnyTexture.setShineDamper(100);
 	bunnyTexture.setReflectivity(10);
 	TexturedModel bunnyStaticModel(bunnyModel, bunnyTexture);
 	
-	Player player(bunnyStaticModel, std::vector<float>{100.0f, 0.0f, -50.0f}, 0, 0, 0, 1);
+	Player player(bunnyStaticModel, std::vector<float>{100.0f, 0.0f, -50.0f}, 0, 180, 0, 1);
 
-	Camera camera;
+	Camera camera(player);
 	MasterRenderer renderer;
 
 	while (display.isCloseRequested()) {

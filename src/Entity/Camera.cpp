@@ -1,42 +1,56 @@
 #include "Camera.h"
 #include <iostream>
+#include <math.h>
+#include <cmath>
 
+float toRadian = 3.1415 / 180;
 
-
-Camera::Camera() {
-	position = std::vector<float>{ 100.0f,35.0f,50.0f };
+Camera::Camera(Player &playeri):player(&playeri) {
+	position = std::vector<float>{ 0.0f,0.0f,0.0f };
+	distanceFromPlayer = 50;
+	angleAroundPlayer = 0;
+	pitch = 20;
 }
 
 void Camera::move() {
-	//int key = DisplayManager().getKey();
-	////std::cout << yaw << std::endl;
-	//switch (key) {
-	//case keyD:
-	//	position[0] -= 2.0f;
-	//	break;
-	//case keyA:
-	//	position[0] += 2.0f;
-	//	break;
-	//case keyW:
-	//	position[1] -= 0.2f;
-	//	break;
-	//case keyS:
-	//	position[1] += 0.2f;
-	//	break;
-	//case keyZ:
-	//	position[2] += 2.0f;
-	//	break;
-	//case keyX:
-	//	position[2] -= 2.0f;
-	//	break;
-	//case keyQ:
-	//	yaw -= 5.0f;
-	//	break;
-	//case keyE:
-	//	yaw += 5.0f;
-	//	break;
-	//case keyEsc:
-	//	DisplayManager().closeDisplay();
-	//	break;
-	//};
+	calculateZoom();
+	calculatePitch();
+	calculateAngleAroundPlayer();
+	std::pair<float, float> dist = calculateDistance();
+	calculateCameraPosition(dist);
+	yaw = 180 - (player->getRy() + angleAroundPlayer);
+}
+
+void Camera::calculateZoom() {
+	float zoomLevel = DisplayManager().getScroll().second;
+	//std::cout << zoomLevel << std::endl;
+	distanceFromPlayer -= zoomLevel;
+}
+
+void Camera::calculatePitch() {
+	if (DisplayManager().getMKey() == 1) {
+		float pitchChange = DisplayManager().getCPos().second * 0.1f;
+		pitch -= pitchChange;
+	}
+}
+
+void Camera::calculateAngleAroundPlayer() {
+	if (DisplayManager().getMKey() == -1) {
+		float angleChange = DisplayManager().getCPos().first * 0.1f;
+		angleAroundPlayer -= angleChange;
+	}
+}
+
+std::pair<float,float> Camera::calculateDistance() {
+	return { (float)distanceFromPlayer * cosf(pitch * toRadian),(float)distanceFromPlayer * sinf(pitch * toRadian) };
+}
+
+void Camera::calculateCameraPosition(std::pair<float,float> disti) {
+	float theta = player->getRy() + angleAroundPlayer;
+	float offsetX = (float) disti.first * sinf(theta * toRadian);
+	float offsetZ = (float) disti.first * cosf(theta * toRadian);
+	//std::cout << offsetX << offsetZ << std::endl;
+	Camera::position[0] = player->getPosition()[0] - offsetX;
+	Camera::position[2] = (player->getPosition()[2] - offsetZ);
+	Camera::position[1] = player->getPosition()[1] + disti.second;
 }
