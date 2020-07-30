@@ -16,7 +16,7 @@ glm::mat4 Maths::createViewMatrix(Camera camera) {
 	viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.getPitch()), glm::vec3(1.0f, 0.0f, 0.0f));
 	viewMatrix = glm::rotate(viewMatrix, glm::radians(camera.getYaw()), glm::vec3(0.0f, 1.0f, 0.0f));
 	std::vector<float> cameraPos = camera.getPosition();
-	glm::vec3 negCameraPos(cameraPos[0], cameraPos[1], cameraPos[2]);
+	glm::vec3 negCameraPos(-cameraPos[0], -cameraPos[1], -cameraPos[2]);
 	viewMatrix = glm::translate(viewMatrix, negCameraPos);
 	return viewMatrix;
 }

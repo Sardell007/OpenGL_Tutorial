@@ -1,8 +1,13 @@
 #include "DisplayManager.h"
 #include <iostream>
+#include <chrono>
 
 int key = 0;
 int width, height;
+
+long  DisplayManager::lastFrameTime;
+float DisplayManager::delta;
+
 DisplayManager::DisplayManager() {
 
 }
@@ -53,6 +58,7 @@ int DisplayManager::createDisplay() {
 
     std::cout << glGetString(GL_VERSION) << std::endl;
 
+    lastFrameTime = getCurrentTime();
 }
 
 void DisplayManager::keyBoardInput(GLFWwindow* window, int keyi, int scancode, int action, int mods){
@@ -73,8 +79,15 @@ int DisplayManager::closeDisplay() {
 void DisplayManager::updateDisplay() {
     glfwSwapBuffers(window);
     glfwPollEvents();
+    long currentFrameTime = getCurrentTime();
+    delta = (currentFrameTime - lastFrameTime)/1000.0f;
+    lastFrameTime = currentFrameTime;
 }
 
 bool DisplayManager::isCloseRequested() {
     return !glfwWindowShouldClose(window);
+}
+
+long DisplayManager::getCurrentTime() {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 }

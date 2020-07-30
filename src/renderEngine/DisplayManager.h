@@ -5,6 +5,9 @@
 class DisplayManager {
 private:
 	GLFWwindow* window;
+	static long  lastFrameTime;
+	static float delta;
+	static long getCurrentTime();
 public:
 	static int getKey();
 	static void keyBoardInput(GLFWwindow* window, int keyi, int scancode, int action, int mods);
@@ -17,4 +20,5 @@ public:
 	int closeDisplay();
 	void updateDisplay();
 	bool isCloseRequested();
+	inline static float getFrameTimeSeconds() { return delta; };
 };

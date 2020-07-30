@@ -156,6 +156,7 @@
     <ClCompile Include="src\Entity\Camera.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Light.cpp" />
+    <ClCompile Include="src\Entity\Player.cpp" />
     <ClCompile Include="src\Models\TexturedModel.cpp" />
     <ClCompile Include="src\renderEngine\DisplayManager.cpp" />
     <ClCompile Include="src\renderEngine\EntityRenderer.cpp" />
@@ -428,6 +429,7 @@
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\Camera.h" />
     <ClInclude Include="src\Entity\Light.h" />
+    <ClInclude Include="src\Entity\Player.h" />
     <ClInclude Include="src\Models\TexturedModel.h" />
     <ClInclude Include="src\renderEngine\DisplayManager.h" />
     <ClInclude Include="src\renderEngine\EntityRenderer.h" />

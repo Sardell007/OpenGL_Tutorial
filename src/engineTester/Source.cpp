@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <iostream>
+#include <Entity\Player.h>
 
 #define WIDTH 2880
 #define HEIGHT 1800
@@ -40,10 +41,8 @@ int main() {
 		trees.push_back(Entity(treeStaticModel, std::vector<float>{posX, 0.0f, -posZ}, 0, 0, 0, 10 * scale));
 	}
 
-	RawModel grassModel = load.loadObjModel("res/grassModel.obj", loader);
-	ModelTexture grassTexture(loader.loadTexture("res/grassTexture.png"));
-	grassTexture.setShineDamper(100);
-	grassTexture.setReflectivity(10);
+	RawModel grassModel = load.loadObjModel("res/grassMod.obj", loader);
+	ModelTexture grassTexture(loader.loadTexture("res/grassTex.png"));
 	grassTexture.setHasTransparency(true);
 	grassTexture.setUseFakeLighting(true);
 	TexturedModel grassStaticModel(grassModel, grassTexture);
@@ -57,8 +56,6 @@ int main() {
 	}
 
 	Light light(std::vector<float>{3000, 2000, 2000}, std::vector<float>{1.0, 1.0, 1.0});
-	//ModelTexture tex1 = ModelTexture(loader.loadTexture("res/grass.png"));
-	//ModelTexture tex2 = ModelTexture(loader.loadTexture("res/grass.png"));
 	TerrainTexture background(loader.loadTexture("res/grassy2.png"));
 	TerrainTexture flower(loader.loadTexture("res/grassFlower.png"));
 	TerrainTexture mud(loader.loadTexture("res/mud.png"));
@@ -66,15 +63,25 @@ int main() {
 	TerrainTexturePack texturePack(background, flower, mud, path);
 	TerrainTexture blendMap(loader.loadTexture("res/blendMap.png"));
 
-	Terrain terrain(0, -1, loader, texturePack, blendMap);
+	Terrain terrain1(0, -1, loader, texturePack, blendMap);
 	Terrain terrain2(-1, -1, loader, texturePack, blendMap);
+
+	RawModel bunnyModel = load.loadObjModel("res/bunny.obj", loader);
+	ModelTexture bunnyTexture(loader.loadTexture("res/white.png"));
+	bunnyTexture.setShineDamper(100);
+	bunnyTexture.setReflectivity(10);
+	TexturedModel bunnyStaticModel(bunnyModel, bunnyTexture);
+	
+	Player player(bunnyStaticModel, std::vector<float>{100.0f, 0.0f, -50.0f}, 0, 0, 0, 1);
 
 	Camera camera;
 	MasterRenderer renderer;
 
 	while (display.isCloseRequested()) {
 		camera.move();
-		renderer.processTerrain(terrain);
+		player.move();
+		renderer.processEntity(player);
+		renderer.processTerrain(terrain1);
 		renderer.processTerrain(terrain2);
 		for (Entity entity : trees)
 			renderer.processEntity(entity);
